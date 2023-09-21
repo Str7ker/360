@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <title>360 video</title>
+        <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+        <script>
+            AFRAME.registerComponent('play-pause', {
+                init: function () {
+                    var myVideo = document.querySelector('#v360');
+                    var videoControls = document.querySelector('#videoControls');
+                    this.el.addEventListener('click', function () {
+                        if (myVideo.paused) {
+                            myVideo.play();
+                            videoControls.setAttribute('src', '#pause');
+                        } else {
+                            myVideo.pause();
+                            videoControls.setAttribute('src', '#play');
+                        }
+                    });
+                }
+            })
+        </script>
+    </head>
+
+    <body>
+        <a-scene>
+            <a-assets>
+                <img id="play" src="play-buttton.png">
+                <img id="pause" src="pause.png">
+                <video id="v360" src="360.mp4" loop="true"></video>
+            </a-assets>
+
+            <a-camera>
+                <a-cursor></a-cursor>
+            </a-camera>
+
+            <a-videosphere src="#v360" rotation="0 -90 0"></a-videosphere>
+
+            <a-image id="videoControls" src="#play" position="0 1 -2" scale="0.2 0.2 1" play-pause></a-image>
+        </a-scene>
+    </body>
+</html>
